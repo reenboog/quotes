@@ -1,6 +1,7 @@
 
 #include "GameLayer.h"
 #include "SimpleAudioEngine.h"
+#include "UILayer.h"
 
 #define zBack 0
 
@@ -11,15 +12,22 @@ GameLayer::~GameLayer() {
 }
 
 GameLayer::GameLayer(): Layer() {
-    _back = nullptr;
+    this->_back = nullptr;
+    this->_uiLayer = nullptr;
 }
 
 Scene* GameLayer::scene() {
-    auto scene = Scene::create();
-    auto gameLayer = GameLayer::create();
+    Scene *scene = Scene::create();
+
+    GameLayer *gameLayer = GameLayer::create();
+    UILayer *uiLayer = UILayer::create();
+    
+    uiLayer->setGameLayer(gameLayer);
+    gameLayer->setUILayer(uiLayer);
 
     // add layer as a child to scene
     scene->addChild(gameLayer);
+    scene->addChild(uiLayer);
 
     // return the scene
     return scene;
@@ -45,4 +53,8 @@ bool GameLayer::init() {
     }
     
     return true;
+}
+
+void GameLayer::setUILayer(UILayer *uiLayer) {
+    this->_uiLayer = uiLayer;
 }

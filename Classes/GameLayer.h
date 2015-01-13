@@ -3,19 +3,24 @@
 
 #include "cocos2d.h"
 
+class UILayer;
+
 class GameLayer: public cocos2d::Layer {
 public:
     GameLayer();
     ~GameLayer();
     
-    static cocos2d::Scene* scene();
-
-    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
+    
+    static cocos2d::Scene* scene();
+    
+    void setUILayer(UILayer *uiLayer);
     
     CREATE_FUNC(GameLayer);
 private:
     cocos2d::Sprite *_back;
+    
+    UILayer *_uiLayer;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
