@@ -11,6 +11,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 #include "cocos2d.h"
 
@@ -31,6 +32,9 @@ public:
     static void purge();
     
     static void load();
+    
+    static vector<string> getVectorWithQuotes();
+    
 private:
     StringStringMap strings;
     static Localized *__sharedInstance;

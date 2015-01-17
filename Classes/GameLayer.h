@@ -2,6 +2,7 @@
 #define __GAME_LAYER_H__
 
 #include "cocos2d.h"
+#include <vector>
 
 class UILayer;
 
@@ -12,6 +13,11 @@ public:
     
     virtual bool init();
     
+    virtual bool onTouchBegan(cocos2d::Touch*, cocos2d::Event*);
+    virtual void onTouchMoved(cocos2d::Touch*, cocos2d::Event*);
+    virtual void onTouchEnded(cocos2d::Touch*, cocos2d::Event*);
+    virtual void onTouchCancelled(cocos2d::Touch*, cocos2d::Event*);
+    
     static cocos2d::Scene* scene();
     
     void setUILayer(UILayer *uiLayer);
@@ -21,6 +27,15 @@ private:
     cocos2d::Sprite *_back;
     
     UILayer *_uiLayer;
+    
+    cocos2d::Label *_lab;
+    
+    std::vector<std::string> _quotesVec;
+    
+    int _curIndex;
+    int _countOfQuotesInVector;
+    
+    cocos2d::Vec2 _touchBeganCoords;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

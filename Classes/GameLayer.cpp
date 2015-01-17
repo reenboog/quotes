@@ -2,6 +2,9 @@
 #include "GameLayer.h"
 #include "SimpleAudioEngine.h"
 #include "UILayer.h"
+#include "Localized.h"
+
+
 
 #define zBack 0
 
@@ -38,6 +41,15 @@ bool GameLayer::init() {
         return false;
     }
     
+    auto touchListener = EventListenerTouchOneByOne::create();
+    
+    touchListener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+    touchListener->onTouchMoved = CC_CALLBACK_2(GameLayer::onTouchMoved, this);
+    touchListener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
+    touchListener->onTouchCancelled = CC_CALLBACK_2(GameLayer::onTouchCancelled, this);
+    
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+    
     Size visibleSize = Director::getInstance()->getVisibleSize();
     
     // back
@@ -50,11 +62,56 @@ bool GameLayer::init() {
         _back->setScale(visibleSize.width / backSize.width, visibleSize.height / backSize.height);
         
         this->addChild(_back, zBack);
+        
     }
+    
+    //
+    
+    _quotesVec = Localized::getVectorWithQuotes();
+    
+    _countOfQuotesInVector = _quotesVec.size();
+    
+    _curIndex = 0; // нет ничего более бостоянного, чем временное решение
+    
+    _lab = Label::createWithSystemFont(_quotesVec[_curIndex], "Helvetica", 16);
+    _lab->setPosition(visibleSize.width/2, visibleSize.height/2);
+    this->addChild(_lab);
     
     return true;
 }
 
 void GameLayer::setUILayer(UILayer *uiLayer) {
     this->_uiLayer = uiLayer;
+}
+
+bool GameLayer::onTouchBegan(Touch *touch, Event *event)
+{
+    _touchBeganCoords = touch->getLocation();
+   
+    _curIndex++;
+    
+    if(_curIndex > _countOfQuotesInVector - 1)
+    {
+        _curIndex = 0;
+    }
+    
+    _lab->setString(_quotesVec[_curIndex]);
+    return true;
+    
+}
+
+void GameLayer::onTouchMoved(Touch *touch, Event *event)
+{
+    CCLOG("move");
+}
+
+void GameLayer::onTouchEnded(Touch *touch, Event *event)
+{
+    
+    CCLOG("End!");
+}
+
+void GameLayer::onTouchCancelled(Touch *touch, Event *event)
+{
+    CCLOG("cancel!");
 }
