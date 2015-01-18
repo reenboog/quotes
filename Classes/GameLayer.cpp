@@ -73,7 +73,8 @@ bool GameLayer::init() {
     
     _curIndex = 0; // нет ничего более бостоянного, чем временное решение
     
-    _lab = Label::createWithSystemFont(_quotesVec[_curIndex], "Helvetica", 16);
+    
+    _lab = Label::createWithBMFont("font.fnt", _quotesVec[_curIndex]);
     _lab->setPosition(visibleSize.width/2, visibleSize.height/2);
     this->addChild(_lab);
     
@@ -88,30 +89,32 @@ bool GameLayer::onTouchBegan(Touch *touch, Event *event)
 {
     _touchBeganCoords = touch->getLocation();
    
-    _curIndex++;
-    
-    if(_curIndex > _countOfQuotesInVector - 1)
-    {
-        _curIndex = 0;
-    }
-    
-    _lab->setString(_quotesVec[_curIndex]);
     return true;
-    
 }
 
 void GameLayer::onTouchMoved(Touch *touch, Event *event)
 {
-    CCLOG("move");
+    //CCLOG("move");
 }
 
 void GameLayer::onTouchEnded(Touch *touch, Event *event)
 {
+    Vec2 touchEnd = touch->getLocation();
     
-    CCLOG("End!");
+    int difference = touchEnd.x - _touchBeganCoords.x;
+    
+    if(difference >= 0)    {_curIndex--;}
+    else                {_curIndex++;}
+    
+    if(_curIndex > _countOfQuotesInVector - 1)  {_curIndex = 0;}
+    else if (_curIndex < 0)                     {_curIndex = _countOfQuotesInVector - 1;}
+    
+    _lab->setString(_quotesVec[_curIndex]);
+    
+    //CCLOG("End!");
 }
 
 void GameLayer::onTouchCancelled(Touch *touch, Event *event)
 {
-    CCLOG("cancel!");
+    //CCLOG("cancel!");
 }
