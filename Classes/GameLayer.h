@@ -22,6 +22,9 @@ public:
     
     void setUILayer(UILayer *uiLayer);
     
+    void shareToFacebook();
+    void shareToTwitter();
+    
     CREATE_FUNC(GameLayer);
 private:
     cocos2d::Sprite *_back;

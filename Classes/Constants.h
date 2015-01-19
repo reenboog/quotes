@@ -32,6 +32,7 @@
 
 #define kFakeAvatarPrefix "fake"
 #define kNumOfFakeAvatars 10
+#define kQuoteLineWidth 350
 
 static const char *kFakeCompetitorsNames[kNumOfFakeAvatars] = {
     "John",

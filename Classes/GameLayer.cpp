@@ -3,7 +3,7 @@
 #include "SimpleAudioEngine.h"
 #include "UILayer.h"
 #include "Localized.h"
-
+#include "Constants.h"
 
 
 #define zBack 0
@@ -76,7 +76,10 @@ bool GameLayer::init() {
     
     _lab = Label::createWithBMFont("font.fnt", _quotesVec[_curIndex]);
     _lab->setPosition(visibleSize.width/2, visibleSize.height/2);
+    _lab->setMaxLineWidth(kQuoteLineWidth);
+    _lab->setAlignment(TextHAlignment::CENTER);
     this->addChild(_lab);
+    CCLOG("Width %i", _lab->getMaxLineWidth());
     
     return true;
 }
@@ -103,11 +106,17 @@ void GameLayer::onTouchEnded(Touch *touch, Event *event)
     
     int difference = touchEnd.x - _touchBeganCoords.x;
     
-    if(difference >= 0)    {_curIndex--;}
-    else                {_curIndex++;}
+    if(difference >= 0){
+        _curIndex--;
+    }else{
+        _curIndex++;
+    }
     
-    if(_curIndex > _countOfQuotesInVector - 1)  {_curIndex = 0;}
-    else if (_curIndex < 0)                     {_curIndex = _countOfQuotesInVector - 1;}
+    if(_curIndex > _countOfQuotesInVector - 1){
+        _curIndex = 0;
+    }else if (_curIndex < 0){
+        _curIndex = _countOfQuotesInVector - 1;
+    }
     
     _lab->setString(_quotesVec[_curIndex]);
     
@@ -117,4 +126,14 @@ void GameLayer::onTouchEnded(Touch *touch, Event *event)
 void GameLayer::onTouchCancelled(Touch *touch, Event *event)
 {
     //CCLOG("cancel!");
+}
+
+void GameLayer::shareToFacebook()
+{
+    printf("FACEBOOK\n");
+}
+
+void GameLayer::shareToTwitter()
+{
+    printf("TWITTER\n");
 }
