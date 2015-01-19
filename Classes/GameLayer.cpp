@@ -68,18 +68,16 @@ bool GameLayer::init() {
     
     //
     
-    _quotesVec = Localized::getVectorWithQuotes();
+    _quotes = Localized::getVectorWithQuotes();
     
-    _countOfQuotesInVector = _quotesVec.size();
-    
-    _curIndex = 0; // нет ничего более бостоянного, чем временное решение
+    _currentQuoteIndex = 0; // нет ничего более бостоянного, чем временное решение
     
     
-    _lab = Label::createWithBMFont("font.fnt", _quotesVec[_curIndex]);
-    _lab->setPosition(_visibleSize.width/2, _visibleSize.height/2);
-    _lab->setMaxLineWidth(kQuoteLineWidth);
-    _lab->setAlignment(TextHAlignment::CENTER);
-    this->addChild(_lab);
+    _quoteLabel = Label::createWithBMFont("font.fnt", _quotes[_currentQuoteIndex]);
+    _quoteLabel->setPosition(_visibleSize.width/2, _visibleSize.height/2);
+    _quoteLabel->setMaxLineWidth(kQuoteLineWidth);
+    _quoteLabel->setAlignment(TextHAlignment::CENTER);
+    this->addChild(_quoteLabel);
     
     return true;
 }
@@ -97,8 +95,7 @@ bool GameLayer::onTouchBegan(Touch *touch, Event *event)
 
 void GameLayer::onTouchMoved(Touch *touch, Event *event)
 {
-    _lab->setPosition(_visibleSize.width/2 + (touch->getLocation().x - _touchBeganCoords.x), _lab->getPosition().y);
-    //CCLOG("move");
+    _quoteLabel->setPosition(_visibleSize.width/2 + (touch->getLocation().x - _touchBeganCoords.x), _quoteLabel->getPosition().y);
 }
 
 void GameLayer::onTouchEnded(Touch *touch, Event *event)
@@ -108,29 +105,28 @@ void GameLayer::onTouchEnded(Touch *touch, Event *event)
     int difference = touchEnd.x - _touchBeganCoords.x;
     
     if(difference >= 0){
-        _curIndex--;
+        _currentQuoteIndex--;
     }else{
-        _curIndex++;
+        _currentQuoteIndex++;
     }
     
-    if(_curIndex > _countOfQuotesInVector - 1){
-        _curIndex = 0;
-    }else if (_curIndex < 0){
-        _curIndex = _countOfQuotesInVector - 1;
+    if(_currentQuoteIndex < 0){
+        _currentQuoteIndex = _quotes.size() - 1;
     }
+    if(_currentQuoteIndex > _quotes.size() - 1){
+        _currentQuoteIndex = 0;}
     
-    _lab->setOpacity(0);
-    _lab->setString(_quotesVec[_curIndex]);
-    _lab->setPosition(_visibleSize.width/2, _visibleSize.height/2);
+    _quoteLabel->setOpacity(0);
+    _quoteLabel->setString(_quotes[_currentQuoteIndex]);
+    _quoteLabel->setPosition(_visibleSize.width/2, _visibleSize.height/2);
     
     auto fadeIn = FadeIn::create(1.0f);
-    _lab->runAction(fadeIn);
-    //CCLOG("End!");
+    _quoteLabel->runAction(fadeIn);
 }
 
 void GameLayer::onTouchCancelled(Touch *touch, Event *event)
 {
-    //CCLOG("cancel!");
+    CCLOG("cancel!");
 }
 
 void GameLayer::shareToFacebook()
