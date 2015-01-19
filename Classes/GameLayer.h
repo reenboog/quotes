@@ -25,6 +25,7 @@ public:
     void shareToFacebook();
     void shareToTwitter();
     
+    
     CREATE_FUNC(GameLayer);
 private:
     cocos2d::Sprite *_back;
@@ -39,6 +40,9 @@ private:
     int _countOfQuotesInVector;
     
     cocos2d::Vec2 _touchBeganCoords;
+    
+    cocos2d::Size _visibleSize;
+    
 };
 
 #endif // __HELLOWORLD_SCENE_H__

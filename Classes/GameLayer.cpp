@@ -50,19 +50,20 @@ bool GameLayer::init() {
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
     
-    Size visibleSize = Director::getInstance()->getVisibleSize();
+    _visibleSize = Director::getInstance()->getVisibleSize();
+    
+    
     
     // back
     {
         _back = Sprite::create("back.png");
-        _back->setPosition({static_cast<float>(visibleSize.width / 2.0), static_cast<float>(visibleSize.height / 2.0)});
+        _back->setPosition({static_cast<float>(_visibleSize.width / 2.0), static_cast<float>(_visibleSize.height / 2.0)});
         
         Size backSize = _back->getContentSize();
         
-        _back->setScale(visibleSize.width / backSize.width, visibleSize.height / backSize.height);
+        _back->setScale(_visibleSize.width / backSize.width, _visibleSize.height / backSize.height);
         
         this->addChild(_back, zBack);
-        
     }
     
     //
@@ -75,11 +76,10 @@ bool GameLayer::init() {
     
     
     _lab = Label::createWithBMFont("font.fnt", _quotesVec[_curIndex]);
-    _lab->setPosition(visibleSize.width/2, visibleSize.height/2);
+    _lab->setPosition(_visibleSize.width/2, _visibleSize.height/2);
     _lab->setMaxLineWidth(kQuoteLineWidth);
     _lab->setAlignment(TextHAlignment::CENTER);
     this->addChild(_lab);
-    CCLOG("Width %i", _lab->getMaxLineWidth());
     
     return true;
 }
@@ -97,6 +97,7 @@ bool GameLayer::onTouchBegan(Touch *touch, Event *event)
 
 void GameLayer::onTouchMoved(Touch *touch, Event *event)
 {
+    _lab->setPosition(_visibleSize.width/2 + (touch->getLocation().x - _touchBeganCoords.x), _lab->getPosition().y);
     //CCLOG("move");
 }
 
@@ -118,8 +119,12 @@ void GameLayer::onTouchEnded(Touch *touch, Event *event)
         _curIndex = _countOfQuotesInVector - 1;
     }
     
+    _lab->setOpacity(0);
     _lab->setString(_quotesVec[_curIndex]);
+    _lab->setPosition(_visibleSize.width/2, _visibleSize.height/2);
     
+    auto fadeIn = FadeIn::create(1.0f);
+    _lab->runAction(fadeIn);
     //CCLOG("End!");
 }
 
