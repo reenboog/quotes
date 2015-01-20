@@ -32,8 +32,6 @@ void Quotes::load(){
         return;
     }
     
-    
-    
     unsigned char *t = nullptr;
     ssize_t stringsDataSize = 0;
     t = (FileUtils::getInstance()->getFileData("quotes.json", "r", &stringsDataSize));
@@ -48,13 +46,11 @@ void Quotes::load(){
     rapidjson::Document stringsDoc;
     stringsDoc.Parse<0>(stringsData);
     
-    const auto &stringsMap = stringsDoc["quotes"];
-    if(stringsMap.IsObject()) {
-        for(auto it = stringsMap.MemberonBegin(); it != stringsMap.MemberonEnd(); ++it) {
-            string key = it->name.GetString();
-            string value = it->value.GetString();
-            
-            _quotes.push_back(value);
+    const auto &strArray = stringsDoc["quotes"];
+    
+    if(strArray.IsArray()) {
+        for(auto it = strArray.onBegin(); it != strArray.onEnd(); ++it) {
+            _quotes.push_back(it->GetString());
         }
     }
     
