@@ -30,13 +30,10 @@ bool UILayer::init() {
     _shareMenu->setPosition(0,0);
     this->addChild(_shareMenu);
     
-    _fb_btn = MenuItemImage::create("fb_btn.png", "fb_btn_pressed.png", CC_CALLBACK_0(UILayer::shareToFb, this));
-    _fb_btn->setPosition(visibleSize.width * 0.35, visibleSize.height * 0.1);
-    _shareMenu->cocos2d::Node::addChild(_fb_btn);
+    _vk_btn = MenuItemImage::create("vk_btn.png", "vk_btn_pressed.png", CC_CALLBACK_0(UILayer::shareToVk, this));
+    _vk_btn->setPosition(visibleSize.width * 0.5, visibleSize.height * 0.1);
+    _shareMenu->cocos2d::Node::addChild(_vk_btn);
     
-    _tw_btn = MenuItemImage::create("tw_btn.png", "tw_btn_pressed.png", CC_CALLBACK_0(UILayer::shareToTw, this));
-    _tw_btn->setPosition(visibleSize.width * 0.65, visibleSize.height * 0.1);
-    _shareMenu->cocos2d::Node::addChild(_tw_btn);
     
     return true;
 }
@@ -45,12 +42,7 @@ void UILayer::setGameLayer(GameLayer *gameLayer) {
     this->_gameLayer = gameLayer;
 }
 
-void UILayer::shareToFb()
+void UILayer::shareToVk()
 {
-    _gameLayer->shareToFacebook();
-}
-
-void UILayer::shareToTw()
-{
-    _gameLayer->shareToTwitter();
+    _gameLayer->shareToVkontakte();
 }

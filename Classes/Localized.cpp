@@ -59,38 +59,7 @@ void Localized::load() {
     delete[] stringsData;
 }
 
-vector<string> Localized::getVectorWithQuotes()
-{
-    vector<string> vectorWithQuotes;
-    
-    unsigned char *t = nullptr;
-    ssize_t stringsDataSize = 0;
-    t = (FileUtils::getInstance()->getFileData("quotes.json", "r", &stringsDataSize));
-    
-    char *stringsData = new char[stringsDataSize + 1];
-    memcpy(stringsData, t, stringsDataSize);
-    stringsData[stringsDataSize] = NULL;
-    
-    delete[] t;
-    t = NULL;
-    
-    rapidjson::Document stringsDoc;
-    stringsDoc.Parse<0>(stringsData);
-    
-    const auto &stringsMap = stringsDoc["quotes"];
-    if(stringsMap.IsObject()) {
-        for(auto it = stringsMap.MemberonBegin(); it != stringsMap.MemberonEnd(); ++it)
-        {
-            string value = it->value.GetString();
-            
-            vectorWithQuotes.push_back(value);
-        }
-    }
-    
-    delete[] stringsData;
-    
-    return vectorWithQuotes;
-}
+
 
 void Localized::purge() {
     delete __sharedInstance;

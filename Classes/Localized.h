@@ -33,8 +33,6 @@ public:
     
     static void load();
     
-    static vector<string> getVectorWithQuotes();
-    
 private:
     StringStringMap strings;
     static Localized *__sharedInstance;

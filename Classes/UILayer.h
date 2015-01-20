@@ -22,15 +22,13 @@ public:
     
     void setGameLayer(GameLayer *gameLayer);
     
-    void shareToFb();
-    void shareToTw();
+    void shareToVk();
     
     CREATE_FUNC(UILayer);
 private:
     GameLayer *_gameLayer;
     
-    cocos2d::MenuItemImage *_fb_btn;
-    cocos2d::MenuItemImage *_tw_btn;
+    cocos2d::MenuItemImage *_vk_btn;
     
     cocos2d::Menu *_shareMenu;
 };

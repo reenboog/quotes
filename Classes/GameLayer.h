@@ -22,9 +22,10 @@ public:
     
     void setUILayer(UILayer *uiLayer);
     
-    void shareToFacebook();
-    void shareToTwitter();
+    void shareToVkontakte();
     
+    void initBackground();
+    void initLabel();
     
     CREATE_FUNC(GameLayer);
 private:
@@ -33,10 +34,6 @@ private:
     UILayer *_uiLayer;
     
     cocos2d::Label *_quoteLabel;
-    
-    std::vector<std::string> _quotes;
-    
-    int _currentQuoteIndex;
     
     cocos2d::Vec2 _touchBeganCoords;
     

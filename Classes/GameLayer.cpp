@@ -5,6 +5,8 @@
 #include "Localized.h"
 #include "Constants.h"
 
+#include "Quotes.h"
+
 
 #define zBack 0
 
@@ -52,34 +54,33 @@ bool GameLayer::init() {
     
     _visibleSize = Director::getInstance()->getVisibleSize();
     
+    GameLayer::initBackground();
     
     
-    // back
-    {
-        _back = Sprite::create("back.png");
-        _back->setPosition({static_cast<float>(_visibleSize.width / 2.0), static_cast<float>(_visibleSize.height / 2.0)});
-        
-        Size backSize = _back->getContentSize();
-        
-        _back->setScale(_visibleSize.width / backSize.width, _visibleSize.height / backSize.height);
-        
-        this->addChild(_back, zBack);
-    }
+    Quotes::load();
     
-    //
+    GameLayer::initLabel();
     
-    _quotes = Localized::getVectorWithQuotes();
+    return true;
+}
+
+void GameLayer::initBackground(){
+    _back = Sprite::create("back.png");
+    _back->setPosition({static_cast<float>(_visibleSize.width / 2.0), static_cast<float>(_visibleSize.height / 2.0)});
     
-    _currentQuoteIndex = 0; // нет ничего более бостоянного, чем временное решение
+    Size backSize = _back->getContentSize();
     
+    _back->setScale(_visibleSize.width / backSize.width, _visibleSize.height / backSize.height);
     
-    _quoteLabel = Label::createWithBMFont("font.fnt", _quotes[_currentQuoteIndex]);
+    this->addChild(_back, zBack);
+}
+
+void GameLayer::initLabel(){
+    _quoteLabel = Label::createWithBMFont("font.fnt", Quotes::getCurrent());
     _quoteLabel->setPosition(_visibleSize.width/2, _visibleSize.height/2);
     _quoteLabel->setMaxLineWidth(kQuoteLineWidth);
     _quoteLabel->setAlignment(TextHAlignment::CENTER);
     this->addChild(_quoteLabel);
-    
-    return true;
 }
 
 void GameLayer::setUILayer(UILayer *uiLayer) {
@@ -104,20 +105,14 @@ void GameLayer::onTouchEnded(Touch *touch, Event *event)
     
     int difference = touchEnd.x - _touchBeganCoords.x;
     
-    if(difference >= 0){
-        _currentQuoteIndex--;
-    }else{
-        _currentQuoteIndex++;
-    }
-    
-    if(_currentQuoteIndex < 0){
-        _currentQuoteIndex = _quotes.size() - 1;
-    }
-    if(_currentQuoteIndex > _quotes.size() - 1){
-        _currentQuoteIndex = 0;}
-    
     _quoteLabel->setOpacity(0);
-    _quoteLabel->setString(_quotes[_currentQuoteIndex]);
+    
+    if(difference >= 0){
+        _quoteLabel->setString(Quotes::getPrev());
+    }else{
+        _quoteLabel->setString(Quotes::getNext());
+    }
+    
     _quoteLabel->setPosition(_visibleSize.width/2, _visibleSize.height/2);
     
     auto fadeIn = FadeIn::create(1.0f);
@@ -129,12 +124,7 @@ void GameLayer::onTouchCancelled(Touch *touch, Event *event)
     CCLOG("cancel!");
 }
 
-void GameLayer::shareToFacebook()
+void GameLayer::shareToVkontakte()
 {
-    printf("FACEBOOK\n");
-}
-
-void GameLayer::shareToTwitter()
-{
-    printf("TWITTER\n");
+    printf("Vkontakte\n");
 }

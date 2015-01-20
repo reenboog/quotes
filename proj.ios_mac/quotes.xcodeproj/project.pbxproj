@@ -66,6 +66,8 @@
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
 		D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B0611A1803AB670077942B /* CoreMotion.framework */; };
+		F5B9CD751A6D737000807C13 /* Quotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5B9CD731A6D737000807C13 /* Quotes.cpp */; };
+		F5B9CD761A6D737000807C13 /* Quotes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5B9CD731A6D737000807C13 /* Quotes.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,6 +164,8 @@
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		F5B9CD731A6D737000807C13 /* Quotes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quotes.cpp; sourceTree = "<group>"; };
+		F5B9CD741A6D737000807C13 /* Quotes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quotes.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +303,8 @@
 				B82D04671A641E8600BCEF26 /* Shared.h */,
 				B82D047C1A64EBAB00BCEF26 /* UILayer.cpp */,
 				B82D047D1A64EBAB00BCEF26 /* UILayer.h */,
+				F5B9CD731A6D737000807C13 /* Quotes.cpp */,
+				F5B9CD741A6D737000807C13 /* Quotes.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -495,6 +501,7 @@
 				B82D046E1A641E8600BCEF26 /* Localized.cpp in Sources */,
 				B82D046A1A641E8600BCEF26 /* GameConfig.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				F5B9CD751A6D737000807C13 /* Quotes.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				B82D046C1A641E8600BCEF26 /* GameLayer.cpp in Sources */,
 				B82D047E1A64EBAB00BCEF26 /* UILayer.cpp in Sources */,
@@ -509,6 +516,7 @@
 				B82D04711A641E8600BCEF26 /* Shared.cpp in Sources */,
 				B82D046F1A641E8600BCEF26 /* Localized.cpp in Sources */,
 				B82D046B1A641E8600BCEF26 /* GameConfig.cpp in Sources */,
+				F5B9CD761A6D737000807C13 /* Quotes.cpp in Sources */,
 				B82D046D1A641E8600BCEF26 /* GameLayer.cpp in Sources */,
 				B82D04691A641E8600BCEF26 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
